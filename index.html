@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cool Kids The Agency — Nothing For Sale</title>
+<style>
+:root{--pink:#ff2e93;--ink:#0d0a0c;--paper:#fff3f9;--bg:var(--pink);--fg:var(--ink);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:var(--pink);--fg:var(--ink)}}
+:root[data-theme="dark"]{--bg:var(--pink);--fg:var(--ink)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:"Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+.bar{position:fixed;left:0;right:0;z-index:9;display:flex;justify-content:space-between;padding:14px 20px;font-weight:800;letter-spacing:.08em;font-size:12px;text-transform:uppercase;top:env(safe-area-inset-top,0px)}
+.bar a{color:inherit;text-decoration:none}
+section{padding:90px 20px}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;isolation:isolate}
+.hero>*:not(.hbg){position:relative;z-index:2}
+.hbg{position:absolute;inset:0;z-index:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:0}
+@media (max-width:700px){.hbg{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,1fr)}.hbg .hv:nth-child(n+7){display:none}}
+.hv{position:relative;overflow:hidden;background:#111;filter:grayscale(1) contrast(1.25);mix-blend-mode:multiply;opacity:.6}
+.hv video{width:100%;height:100%;object-fit:cover;display:block}
+.hv.ph0{background:repeating-linear-gradient(115deg,#fff 0 14px,#111 14px 28px);background-size:200% 100%;animation:slide 2.4s linear infinite}
+.hv.ph0:nth-child(2n){animation-direction:reverse;background:repeating-linear-gradient(65deg,#ddd 0 10px,#222 10px 22px)}
+.hv.ph0:nth-child(3n){background:radial-gradient(circle at 30% 40%,#fff,#000 70%);animation:pulse 1.6s ease-in-out infinite}
+@keyframes slide{to{background-position:60px 0}}
+@keyframes pulse{50%{transform:scale(1.25)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(255,46,147,.85) 0%,rgba(255,46,147,.25) 60%,rgba(255,46,147,.1) 100%)}
+.sticker{position:absolute!important;right:6vw;bottom:10vh;z-index:3;width:clamp(110px,16vw,190px);aspect-ratio:1;border-radius:50%;background:var(--ink);color:var(--pink);display:grid;place-items:center;text-align:center;font-weight:900;font-size:clamp(14px,2vw,22px);line-height:1;text-transform:uppercase;transform:rotate(-12deg);animation:spin 9s linear infinite;border:4px solid var(--paper)}
+@keyframes spin{50%{transform:rotate(8deg) scale(1.06)}100%{transform:rotate(-12deg)}}
+.cue{margin-top:36px;font-weight:900;letter-spacing:.16em;font-size:12px;text-transform:uppercase}
+.hero h1{font-size:clamp(60px,17vw,230px);line-height:.82;font-weight:900;letter-spacing:-.05em;text-transform:uppercase;text-shadow:0 0 0 #000}
+.hero h1 span{display:block;color:var(--paper);-webkit-text-stroke:0;text-shadow:5px 5px 0 var(--ink)}
+.hero p{margin-top:24px;max-width:34ch;font-size:clamp(16px,2.2vw,22px);font-weight:600}
+.tag{display:inline-block;border:2px solid var(--fg);border-radius:99px;padding:6px 14px;font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:22px;width:fit-content;animation:wob 3s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(-3deg) scale(1.04)}}
+.marquee{background:var(--ink);color:var(--pink);overflow:hidden;white-space:nowrap;padding:14px 0;font-weight:900;font-size:clamp(20px,4vw,38px);text-transform:uppercase}
+.marquee div{display:inline-block;animation:mq 18s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.story{background:var(--paper)}
+.story h2{font-size:clamp(34px,7vw,90px);line-height:.95;letter-spacing:-.03em;max-width:16ch;text-transform:uppercase}
+.story p{margin-top:28px;max-width:52ch;font-size:clamp(17px,2vw,21px);line-height:1.5}
+.story em{background:var(--pink);font-style:normal;padding:0 .2em}
+.reel{height:700vh;position:relative;background:var(--ink)}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:7vh 0;display:grid;place-items:center;visibility:hidden}
+.slide.on{visibility:visible;animation:bang .22s steps(4,end)}
+@keyframes bang{0%{clip-path:inset(0 100% 0 0);transform:scale(1.12)}100%{clip-path:inset(0);transform:scale(1)}}
+.slide img,.slide video{width:100%;height:100%;object-fit:cover}
+.ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;font-weight:900;font-size:clamp(28px,8vw,110px);text-transform:uppercase;line-height:.9;padding:20px}
+.ph small{display:block;font-size:12px;letter-spacing:.14em;margin-top:14px;font-weight:700}
+.lb{position:absolute;left:0;right:0;height:7vh;background:#000;z-index:2}
+.lb.t{top:0}.lb.b{bottom:0}
+.hud{position:absolute;z-index:3;left:20px;right:20px;bottom:calc(7vh + 12px);display:flex;justify-content:space-between;color:#fff;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;mix-blend-mode:difference}
+.grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.12;background-image:repeating-radial-gradient(circle at 17% 32%,#fff 0 1px,transparent 1px 3px)}
+.contact{background:var(--ink);color:var(--paper);padding:32px 20px 28px;border-top:3px solid var(--pink)}
+.contact h2{font-size:clamp(22px,3.4vw,34px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;color:var(--pink);font-weight:900}
+.contact ul{list-style:none;padding:0;margin-top:12px;font-size:14px;font-weight:500;display:grid;gap:4px;max-width:420px}
+.contact li{display:grid;grid-template-columns:92px 1fr}
+.contact li b{font-weight:800;letter-spacing:.04em;color:#cfa7bc}
+.contact a{color:var(--paper);text-decoration-color:var(--pink);text-underline-offset:4px}
+.fmt{margin-top:28px;font-weight:900;font-size:clamp(22px,3.6vw,40px);line-height:1.02;text-transform:uppercase;max-width:20ch;letter-spacing:-.02em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chips span{border:2px solid var(--ink);border-radius:99px;padding:7px 14px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.chips span:nth-child(odd){background:var(--pink)}
+footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
+@media (prefers-reduced-motion:reduce){.slide.on,.tag,.marquee div{animation:none}}
+</style>
+</head>
+<body>
+<div class="bar"><a href="#top">Cool Kids</a><a href="#contact">Contact</a></div>
+
+<section class="hero" id="top">
+  <div class="hbg" id="hbg">
+    <div class="hv ph0"></div><div class="hv ph0"></div><div class="hv ph0"></div><div class="hv ph0"></div>
+    <div class="hv ph0"></div><div class="hv ph0"></div><div class="hv ph0"></div><div class="hv ph0"></div>
+  </div>
+  <span class="tag">● Nothing for sale</span>
+  <h1>Cool Kids <span>The Agency</span></h1>
+  <p>We make the coolest stories in sport.</p>
+  <div class="cue">Scroll ↓ Roll film</div>
+  <div class="sticker">Just<br>stories</div>
+</section>
+
+<div class="marquee"><div>Nothing for sale ✦ Just real stories ✦ Nothing for sale ✦ Just real stories ✦ Nothing for sale ✦ Just real stories ✦ Nothing for sale ✦ Just real stories ✦</div></div>
+
+<section class="story">
+  <h2>Sport, but make it a <em>movie.</em></h2>
+  <p>We’re a creative agency with a playful streak and a cinematic eye. We find the moments, characters and chaos that make sport worth watching, then tell them properly: sharp, funny, beautifully shot.</p>
+  <div class="fmt">Your story, told your way.</div>
+  <p>Whichever format suits the moment, we’ll shape it with the same cinematic care.</p>
+  <div class="chips"><span>Film Photography</span><span>Cinematic Trailers</span><span>Documentary</span><span>Digital Photography</span><span>Vlogs</span></div>
+</section>
+
+<div class="reel" id="work">
+  <div class="stage">
+    <div class="lb t"></div><div class="lb b"></div><div class="grain"></div>
+    <div class="hud"><span>Selected work</span><span id="count">01 / 08</span></div>
+    <!-- Swap each .ph for <img src="..."> or <video src="..." autoplay muted loop playsinline> -->
+    <div class="slide on"><div class="ph" style="background:#ff2e93;color:#0d0a0c">Photo 01<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#0d0a0c;color:#ff2e93">Video 02<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#fff3f9;color:#0d0a0c">Photo 03<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#ff2e93;color:#fff3f9">Video 04<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#222;color:#fff3f9">Photo 05<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#fff3f9;color:#ff2e93">Video 06<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#0d0a0c;color:#fff3f9">Photo 07<small>drop your work here</small></div></div>
+    <div class="slide"><div class="ph" style="background:#ff2e93;color:#0d0a0c">Video 08<small>drop your work here</small></div></div>
+  </div>
+</div>
+
+<section class="contact" id="contact">
+  <h2>Let’s make something cool.</h2>
+  <ul>
+    <li><b>Name:</b><span>Abdullah Ahmed</span></li>
+    <li><b>Email:</b><a href="mailto:Coolkidsshoots@gmail.com">Coolkidsshoots@gmail.com</a></li>
+    <li><b>Phone:</b><a href="tel:+447385794068">07385 794068</a></li>
+    <li><b>Instagram:</b><a href="https://instagram.com/coolkidsthegency">@coolkidsthegency</a></li>
+  </ul>
+</section>
+<footer>© 2026 Cool Kids The Agency. Nothing for sale.</footer>
+
+<script>
+(function(){
+  var reel=document.getElementById('work'),slides=reel.querySelectorAll('.slide'),count=document.getElementById('count'),cur=0;window.__rebuild=function(){slides=reel.querySelectorAll('.slide');cur=0;reel.style.height=(slides.length*80+100)+'vh';slides.forEach(function(s,k){s.classList.toggle('on',k===0)});count.textContent=pad(1)+' / '+pad(slides.length)};
+  function pad(n){return (n<10?'0':'')+n}
+  function update(){
+    var r=reel.getBoundingClientRect(),total=reel.offsetHeight-window.innerHeight;
+    var p=Math.min(Math.max(-r.top/total,0),.9999);
+    var i=Math.floor(p*slides.length);
+    if(i!==cur){
+      slides[cur].classList.remove('on');
+      slides[i].classList.remove('on');void slides[i].offsetWidth;slides[i].classList.add('on');
+      cur=i;count.textContent=pad(i+1)+' / '+pad(slides.length);
+    }
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+<style>
+#dbBtn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;background:#0d0a0c;color:#ff2e93;border:2px solid #ff2e93;border-radius:99px;padding:12px 18px;font:800 12px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+#dbPanel{position:fixed;right:16px;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:20;width:min(340px,calc(100vw - 32px));background:#fff3f9;color:#0d0a0c;border:2px solid #0d0a0c;border-radius:18px;padding:16px;display:none;font-family:"Helvetica Neue",Arial,sans-serif}
+#dbPanel.open{display:block}
+#dbZone{border:3px dashed #ff2e93;border-radius:14px;padding:26px 12px;text-align:center;font-weight:800;cursor:pointer}
+#dbZone.over{background:#ff2e93;color:#fff}
+#dbPanel p{font-size:12px;line-height:1.4;margin-top:10px}
+#dbList{font-size:12px;margin-top:8px;max-height:110px;overflow:auto}
+</style>
+<button id="dbBtn" type="button">＋ Add media</button>
+<div id="dbPanel">
+  <div id="dbZone">Drop photos &amp; videos here<br><small>or tap to choose</small></div>
+  <input id="dbIn" type="file" accept="image/*,video/*" multiple hidden>
+  <p>They play one after another in the order of their file names (01, 02, 03…). This is a preview in your browser only: nothing is uploaded or saved.</p>
+  <div id="dbList"></div>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('dbBtn'),panel=document.getElementById('dbPanel'),zone=document.getElementById('dbZone'),inp=document.getElementById('dbIn'),list=document.getElementById('dbList'),urls=[];
+  btn.onclick=function(){panel.classList.toggle('open')};
+  zone.onclick=function(){inp.click()};
+  zone.ondragover=function(e){e.preventDefault();zone.classList.add('over')};
+  zone.ondragleave=function(){zone.classList.remove('over')};
+  zone.ondrop=function(e){e.preventDefault();zone.classList.remove('over');load(e.dataTransfer.files)};
+  inp.onchange=function(){load(inp.files)};
+  function load(fl){
+    var files=Array.prototype.slice.call(fl).filter(function(f){return /^(image|video)\//.test(f.type)});
+    if(!files.length)return;
+    files.sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true})});
+    urls.forEach(function(u){URL.revokeObjectURL(u)});urls=[];
+    var stage=document.querySelector('.stage');
+    stage.querySelectorAll('.slide').forEach(function(s){s.remove()});
+    list.innerHTML='';
+    files.forEach(function(f){
+      var u=URL.createObjectURL(f);urls.push(u);
+      var s=document.createElement('div');s.className='slide';
+      var m;
+      if(f.type.indexOf('video')===0){m=document.createElement('video');m.src=u;m.muted=true;m.loop=true;m.autoplay=true;m.playsInline=true;m.play&&m.play().catch(function(){})}
+      else{m=document.createElement('img');m.src=u;m.alt=''}
+      s.appendChild(m);stage.appendChild(s);
+      var li=document.createElement('div');li.textContent=f.name;list.appendChild(li);
+    });
+    window.__rebuild();
+    var vids=files.filter(function(f){return f.type.indexOf('video')===0});
+    var hb=document.getElementById('hbg');
+    if(vids.length){
+      hb.innerHTML='';
+      for(var k=0;k<8;k++){
+        var f2=vids[k%vids.length],d=document.createElement('div'),v=document.createElement('video');
+        d.className='hv';v.src=urls[files.indexOf(f2)];v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;
+        v.play&&v.play().catch(function(){});d.appendChild(v);hb.appendChild(d);
+      }
+    }
+    document.getElementById('work').scrollIntoView();
+  }
+})();
+</script>
+</body>
+</html>
