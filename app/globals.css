@@ -54,3 +54,14 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 .lb-btn.x{top:calc(14px + env(safe-area-inset-top,0px));right:14px}
 .lb-btn.p{left:14px;top:50%}.lb-btn.n{right:14px;top:50%}
 .lb-count{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#fff;font-size:12px;font-weight:800;letter-spacing:.14em}
+
+.swell{background:var(--ink);padding:0;overflow:hidden}
+.vband{display:block;width:100%;padding:0;border:0;background:var(--ink);cursor:zoom-in;line-height:0;transform:scale(.8);opacity:.4;filter:saturate(.4);transition:transform .9s cubic-bezier(.2,.9,.2,1.1),opacity .7s ease,filter .9s ease}
+.vband video{width:100%;height:auto;max-height:100vh;object-fit:cover;display:block}
+.swell.in .vband{transform:scale(1);opacity:1;filter:none}
+@media (prefers-reduced-motion:reduce){.vband{transition:none;transform:none;opacity:1;filter:none}}
+.contact{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;text-align:right;padding:80px 20px 28px}
+.contact h2{font-size:clamp(44px,12vw,190px);line-height:.86;letter-spacing:-.05em;max-width:12ch}
+.contact h2 em{font-style:normal;color:var(--paper)}
+.contact ul{margin-top:32px;justify-items:end}
+.contact li{grid-template-columns:auto auto;gap:8px}
