@@ -37,8 +37,7 @@ export default function Portfolio({ media }) {
     <>
       <div className="bar">
         <a href="#top" className="brand">
-          <img src="/logo.png" alt="" onError={(e) => (e.currentTarget.style.display = "none")} />
-          Cool Kids
+          <img src="/logo.png" alt="Cool Kids" />
         </a>
         <a href="#contact">Contact</a>
       </div>

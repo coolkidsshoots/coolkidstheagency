@@ -62,4 +62,5 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 
 .slide.on .ph{}
 .bar .brand{display:flex;align-items:center;gap:8px}
-.bar .brand img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.bar .brand{background:var(--ink);padding:7px 12px;border-radius:12px}
+.bar .brand img{height:24px;width:auto;display:block}
