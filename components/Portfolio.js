@@ -1,43 +1,33 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-const PLACEHOLDERS = [
-  ["#ff2e93", "#0d0a0c", "Photo 01"], ["#0d0a0c", "#ff2e93", "Video 02"],
-  ["#fff3f9", "#0d0a0c", "Photo 03"], ["#ff2e93", "#fff3f9", "Video 04"],
-];
 const pad = (n) => (n < 10 ? "0" : "") + n;
 
 export default function Portfolio({ media }) {
-  const reelRef = useRef(null);
-  const [cur, setCur] = useState(0);
-  const total = media.length || PLACEHOLDERS.length;
+  const [open, setOpen] = useState(null); // index of the item shown full-size
 
-  // Warm the cache with every photo up front so each cut is instant.
-  useEffect(() => {
-    media.filter((m) => m.type === "image").forEach((m) => {
-      const im = new Image();
-      im.decoding = "async";
-      im.src = m.src;
-    });
-  }, [media]);
+  const close = useCallback(() => setOpen(null), []);
+  const step = useCallback(
+    (d) => setOpen((i) => (i === null ? i : (i + d + media.length) % media.length)),
+    [media.length]
+  );
 
   useEffect(() => {
-    const update = () => {
-      const reel = reelRef.current;
-      if (!reel) return;
-      const r = reel.getBoundingClientRect();
-      const span = reel.offsetHeight - window.innerHeight;
-      const p = Math.min(Math.max(-r.top / span, 0), 0.9999);
-      setCur(Math.floor(p * total));
+    if (open === null) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
     };
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    update();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
     };
-  }, [total]);
+  }, [open, close, step]);
+
+  const current = open === null ? null : media[open];
 
   return (
     <>
@@ -69,27 +59,37 @@ export default function Portfolio({ media }) {
         </div>
       </section>
 
-      <div className="reel" id="work" ref={reelRef} style={{ height: `${total * 70 + 100}vh` }}>
-        <div className="stage">
-          <div className="lb t" /><div className="lb b" /><div className="grain" />
-          <div className="hud"><span>Selected work</span><span>{pad(cur + 1)} / {pad(total)}</span></div>
-          {media.length
-            ? media.map((m, i) => (
-                <div key={m.src} className={"slide" + (i === cur ? " on" : "")}>
-                  {m.type === "video" ? (
-                    Math.abs(i - cur) <= 1 ? <video src={m.src} muted loop autoPlay playsInline preload="auto" /> : null
-                  ) : (
-                    <img src={m.src} alt="" loading="eager" decoding="async" />
-                  )}
-                </div>
-              ))
-            : PLACEHOLDERS.map(([bg, fg, label], i) => (
-                <div key={label} className={"slide" + (i === cur ? " on" : "")}>
-                  <div className="ph" style={{ background: bg, color: fg }}>{label}</div>
-                </div>
-              ))}
+      <section className="work" id="work">
+        <div className="work-head">
+          <h2>Selected <em>work</em></h2>
+          <span>{media.length} pieces</span>
         </div>
-      </div>
+        <div className="mosaic">
+          {media.map((m, i) => (
+            <button type="button" className="tile" key={m.src} onClick={() => setOpen(i)} aria-label={`Open piece ${i + 1}`}>
+              {m.type === "video" ? (
+                <video src={m.src} muted loop autoPlay playsInline preload="metadata" />
+              ) : (
+                <img src={m.thumb || m.src} alt="" loading="eager" decoding="async" />
+              )}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {current && (
+        <div className="lightbox" onClick={close} role="dialog" aria-modal="true">
+          {current.type === "video" ? (
+            <video src={current.src} controls autoPlay loop playsInline onClick={(e) => e.stopPropagation()} />
+          ) : (
+            <img src={current.src} alt="" onClick={(e) => e.stopPropagation()} />
+          )}
+          <button className="lb-btn x" onClick={close}>Close</button>
+          <button className="lb-btn p" onClick={(e) => { e.stopPropagation(); step(-1); }} aria-label="Previous">‹</button>
+          <button className="lb-btn n" onClick={(e) => { e.stopPropagation(); step(1); }} aria-label="Next">›</button>
+          <div className="lb-count">{pad(open + 1)} / {pad(media.length)}</div>
+        </div>
+      )}
 
       <section className="contact" id="contact">
         <h2>Let’s make something cool.</h2>
