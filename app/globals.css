@@ -4,7 +4,7 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 :root[data-theme="dark"]{--bg:var(--pink);--fg:var(--ink)}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font-family:"Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+body{background:var(--bg);color:var(--fg);font-family:"Helvetica Neue",Arial,sans-serif;overflow-x:clip}
 .bar{position:fixed;left:0;right:0;z-index:9;display:flex;justify-content:space-between;padding:14px 20px;font-weight:800;letter-spacing:.08em;font-size:12px;text-transform:uppercase;top:env(safe-area-inset-top,0px)}
 .bar a{color:inherit;text-decoration:none}
 section{padding:90px 20px}
@@ -36,5 +36,18 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 .bar .brand{background:var(--ink);padding:7px 12px;border-radius:12px}
 .bar .brand img{height:24px;width:auto;display:block}
 
-.gallery{background:var(--ink);display:flex;flex-direction:column;align-items:center}
-.gallery img,.gallery video{display:block;width:100%;height:auto;max-height:100vh;object-fit:contain;background:var(--ink)}
+
+.reel{position:relative;background:var(--ink)}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--ink)}
+.slide{position:absolute;inset:7vh 0;display:grid;place-items:center;visibility:hidden;background:var(--ink)}
+.slide.on{visibility:visible;animation:bang .22s steps(4,end)}
+@keyframes bang{0%{clip-path:inset(0 100% 0 0);transform:scale(1.12)}100%{clip-path:inset(0);transform:scale(1)}}
+.slide img{width:100%;height:100%;object-fit:contain;display:block}
+.slide video{width:100%;height:100%;object-fit:cover;display:block}
+.lb{position:absolute;left:0;right:0;height:7vh;background:#000;z-index:2}
+.lb.t{top:0}.lb.b{bottom:0}
+.hud{position:absolute;z-index:3;left:20px;right:20px;bottom:calc(7vh + 12px);display:flex;justify-content:space-between;color:#fff;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;mix-blend-mode:difference}
+.grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.12;background-image:repeating-radial-gradient(circle at 17% 32%,#fff 0 1px,transparent 1px 3px)}
+.ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;font-weight:900;font-size:clamp(28px,8vw,110px);text-transform:uppercase;line-height:.9;padding:20px}
+.ph small{display:block;font-size:12px;letter-spacing:.14em;margin-top:14px;font-weight:700}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}}
