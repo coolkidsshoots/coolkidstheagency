@@ -21,12 +21,12 @@ section{padding:90px 20px}
 .story h2{font-size:clamp(34px,7vw,90px);line-height:.95;letter-spacing:-.03em;max-width:16ch;text-transform:uppercase}
 .story p{margin-top:28px;max-width:52ch;font-size:clamp(17px,2vw,21px);line-height:1.5}
 .story em{background:var(--pink);font-style:normal;padding:0 .2em}
-.contact{background:var(--ink);color:var(--paper);padding:32px 20px 28px;border-top:3px solid var(--pink)}
+.contact{background:var(--ink);color:var(--paper);padding:32px 20px 28px;border-top:0}
 .contact h2{font-size:clamp(22px,3.4vw,34px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;color:var(--pink);font-weight:900}
 .contact ul{list-style:none;padding:0;margin-top:12px;font-size:14px;font-weight:500;display:grid;gap:4px;max-width:420px}
 .contact li{display:grid;grid-template-columns:92px 1fr}
 .contact li b{font-weight:800;letter-spacing:.04em;color:#cfa7bc}
-.contact a{color:var(--paper);text-decoration-color:var(--pink);text-underline-offset:4px}
+.contact a{color:var(--paper);text-decoration:none}
 .fmt{margin-top:28px;font-weight:900;font-size:clamp(22px,3.6vw,40px);line-height:1.02;text-transform:uppercase;max-width:20ch;letter-spacing:-.02em}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .chips span{border:2px solid var(--ink);border-radius:99px;padding:7px 14px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
@@ -65,3 +65,8 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 .contact h2 em{font-style:normal;color:var(--paper)}
 .contact ul{margin-top:32px;justify-items:end}
 .contact li{grid-template-columns:auto auto;gap:8px}
+
+.contact a:hover{opacity:.7}
+.contact ul{margin-top:56px;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px 22px;font-size:12px;font-weight:500;max-width:none}
+.contact li{display:flex;gap:6px;grid-template-columns:none}
+.contact li b{font-weight:700;color:#cfa7bc}
