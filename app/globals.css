@@ -70,3 +70,11 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 .contact ul{margin-top:56px;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px 22px;font-size:12px;font-weight:500;max-width:none}
 .contact li{display:flex;gap:6px;grid-template-columns:none}
 .contact li b{font-weight:700;color:#cfa7bc}
+
+.mosaic{column-count:1;display:block}
+.mosaic-wait{min-height:60vh;background:var(--ink)}
+.jrow{display:flex;width:100%;overflow:hidden;background:var(--ink)}
+.jrow .tile{display:block;min-width:0;height:100%;break-inside:auto;width:auto}
+.jrow .tile img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-shot{display:block;width:100%;padding:0;border:0;margin:0;background:var(--ink);cursor:zoom-in;line-height:0}
+.hero-shot img{display:block;width:100%;height:auto;max-height:100vh;object-fit:contain;background:var(--ink)}
