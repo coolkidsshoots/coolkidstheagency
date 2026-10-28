@@ -6,7 +6,7 @@ const pad = (n) => (n < 10 ? "0" : "") + n;
 // Photos in groups, with one full-width video dropped between groups. The featured photo opens the section.
 function layout(media) {
   const featured = media.find((m) => m.featured);
-  const photos = media.filter((m) => m.type !== "video" && m !== featured);
+  const photos = media.filter((m) => m.type !== "video" && m !== featured && !m.story);
   const videos = media.filter((m) => m.type === "video");
   const groups = videos.length + 1;
   const size = Math.ceil(photos.length / groups) || 1;
@@ -56,6 +56,7 @@ function Swell({ children }) {
 
 export default function Portfolio({ media: raw }) {
   const { blocks, flat: media } = useMemo(() => layout(raw), [raw]);
+  const storyPhoto = raw.find((m) => m.story);
   const [ratios, setRatios] = useState({});
   const [ready, setReady] = useState(false);
   const [vw, setVw] = useState(1200);
@@ -130,13 +131,22 @@ export default function Portfolio({ media: raw }) {
       </div>
 
       <section className="story">
-        <h2>Sport, but make it a <em>movie.</em></h2>
-        <p>We’re a creative agency with a playful streak and a cinematic eye. We find the moments, characters and chaos that make sport worth watching, then tell them properly: sharp, funny, beautifully shot.</p>
-        <div className="fmt">Your story, told your way.</div>
-        <p>Whichever format suits the moment, we’ll shape it with the same cinematic care.</p>
-        <div className="chips">
-          <span>Film Photography</span><span>Cinematic Trailers</span><span>Documentary</span>
-          <span>Digital Photography</span><span>Vlogs</span>
+        <div className="story-grid">
+          <div className="story-text">
+          <h2>Sport, but make it a <em>movie.</em></h2>
+          <p>We’re a creative agency with a playful streak and a cinematic eye. We find the moments, characters and chaos that make sport worth watching, then tell them properly: sharp, funny, beautifully shot.</p>
+          <div className="fmt">Your story, told your way.</div>
+          <p>Whichever format suits the moment, we’ll shape it with the same cinematic care.</p>
+          <div className="chips">
+            <span>Film Photography</span><span>Cinematic Trailers</span><span>Documentary</span>
+            <span>Digital Photography</span><span>Vlogs</span>
+          </div>
+          </div>
+          {storyPhoto && (
+            <figure className="story-photo">
+              <img src={storyPhoto.thumb || storyPhoto.src} alt="" loading="eager" decoding="async" />
+            </figure>
+          )}
         </div>
       </section>
 
