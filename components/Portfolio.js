@@ -134,7 +134,7 @@ export default function Portfolio({ media: raw }) {
         <div className="story-grid">
           <div className="story-text">
           <h2>Sport, but make it a <em>movie.</em></h2>
-          <p>Every sport story is a movie, and every moment is emotion in time. We’re a creative agency with a playful twist: we freeze it in a photo or let it move, and find the movie in any story.</p>
+          <p>We’re a creative agency with a playful streak and a cinematic eye. We find the moments, characters and chaos that make sport worth watching, then tell them properly: sharp, funny, beautifully shot.</p>
           <div className="fmt">Your story, told your way.</div>
           
           <div className="chips">
