@@ -138,7 +138,7 @@ export default function Portfolio({ media: raw }) {
           <div className="fmt">Your story, told your way.</div>
           
           <div className="chips">
-            <span>Film Photography</span><span>Cinematic Trailers</span><span>Documentary</span>
+            <span>Film Photography</span><span>Movies</span><span>Cinematic Trailers</span><span>Documentary</span>
             <span>Digital Photography</span><span>Vlogs</span>
           </div>
           </div>
