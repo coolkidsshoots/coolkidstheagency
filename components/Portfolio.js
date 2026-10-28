@@ -119,7 +119,7 @@ export default function Portfolio({ media: raw }) {
       {current && (
         <div className="lightbox" onClick={close} role="dialog" aria-modal="true">
           {current.type === "video" ? (
-            <video src={current.src} controls autoPlay loop playsInline onClick={(e) => e.stopPropagation()} />
+            <video src={current.full || current.src} controls autoPlay loop playsInline onClick={(e) => e.stopPropagation()} />
           ) : (
             <img src={current.src} alt="" onClick={(e) => e.stopPropagation()} />
           )}
