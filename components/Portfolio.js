@@ -136,7 +136,7 @@ export default function Portfolio({ media: raw }) {
           <h2>Sport, but make it a <em>movie.</em></h2>
           <p>Every sport story is a movie, and every moment is emotion in time. We’re a creative agency with a playful twist: we freeze it in a photo or let it move, and find the movie in any story.</p>
           <div className="fmt">Your story, told your way.</div>
-          <p>Whichever format suits the moment, we’ll shape it with the same cinematic care.</p>
+          
           <div className="chips">
             <span>Film Photography</span><span>Cinematic Trailers</span><span>Documentary</span>
             <span>Digital Photography</span><span>Vlogs</span>
