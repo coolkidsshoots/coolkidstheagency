@@ -134,8 +134,8 @@ export default function Portfolio({ media: raw }) {
         <div className="story-grid">
           <div className="story-text">
           <h2>Sport, but make it a <em>movie.</em></h2>
-          <p>Every story is a movie in its own way. Some are told in a single frame: a held breath, a raised fist, a face in the final second. Others need to move: the build-up, the roar, the long quiet walk home.</p>
-          <p>That’s why we’re a creative agency with a playful twist. We don’t have one look or one format. We read the story in front of us and shape it to fit, whether that’s sharp or sentimental, loud or still, funny or fierce. From a first match to a title decider, from the park to the big stage, there’s a movie in every sport story. We just know how to find it.</p>
+          <p>Every story is a movie in its own way. A held breath, a raised fist, a face in the final second: sport is made of moments, and a moment is emotion in time.</p>
+          <p>Sometimes we freeze it in a single photograph. Other times we let it move. That’s why we’re a creative agency with a playful twist. We don’t have one look or one format. We read the story in front of us and shape it to fit, whether that’s sharp or sentimental, loud or still, funny or fierce. From a first match to a title decider, from the park to the big stage, there’s a movie in every sport story. We just know how to find it.</p>
           <div className="fmt">Your story, told your way.</div>
           <p>Whichever format suits the moment, we’ll shape it with the same cinematic care.</p>
           <div className="chips">
