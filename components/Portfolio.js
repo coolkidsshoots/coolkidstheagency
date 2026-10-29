@@ -6,7 +6,10 @@ const pad = (n) => (n < 10 ? "0" : "") + n;
 // Photos in groups, with one full-width video dropped between groups. The featured photo opens the section.
 function layout(media) {
   const featured = media.find((m) => m.featured);
-  const photos = media.filter((m) => m.type !== "video" && m !== featured && !m.story);
+  const photos = media
+    .filter((m) => m.type !== "video" && m !== featured && !m.story)
+    .sort((a, b) => ((a.lead ?? -1) >= 0 ? a.lead : 99) - ((b.lead ?? -1) >= 0 ? b.lead : 99));
+  const leadCount = photos.filter((m) => (m.lead ?? -1) >= 0).length;
   const videos = media.filter((m) => m.type === "video");
   const groups = videos.length + 1;
   const size = Math.ceil(photos.length / groups) || 1;
@@ -16,7 +19,7 @@ function layout(media) {
   for (let g = 0; g < groups; g++) {
     const chunk = photos.slice(g * size, (g + 1) * size);
     if (chunk.length) {
-      blocks.push({ kind: "photos", items: chunk.map((m) => ({ m, i: flat.push(m) - 1 })) });
+      blocks.push({ kind: "photos", lead: g === 0 ? leadCount : 0, items: chunk.map((m) => ({ m, i: flat.push(m) - 1 })) });
     }
     if (videos[g]) blocks.push({ kind: "video", item: { m: videos[g], i: flat.push(videos[g]) - 1 } });
   }
@@ -24,9 +27,13 @@ function layout(media) {
 }
 
 // Packs photos into rows that fill the full width exactly, so there are no gaps and nothing is cropped.
-function justify(items, ratios, target) {
+function justify(items, ratios, target, lead = 0) {
   const rows = [];
   let cur = [], sum = 0;
+  if (lead) {
+    rows.push(items.slice(0, lead).map((it) => ({ ...it, r: ratios[it.m.thumb || it.m.src] || 1.5 })));
+    items = items.slice(lead);
+  }
   for (const it of items) {
     const r = ratios[it.m.thumb || it.m.src] || 1.5;
     cur.push({ ...it, r });
@@ -167,7 +174,7 @@ export default function Portfolio({ media: raw }) {
             if (!ready) return <div className="mosaic-wait" key={k} />;
             return (
               <div className="mosaic" key={k}>
-                {justify(b.items, ratios, target).map((row, ri) => (
+                {justify(b.items, ratios, target, b.lead).map((row, ri) => (
                   <div className="jrow" key={ri} style={{ aspectRatio: row.reduce((a, x) => a + x.r, 0) }}>
                     {row.map(({ m, i, r }) => (
                       <button type="button" className="tile" key={m.src} style={{ flex: `${r} 1 0%` }} onClick={() => setOpen(i)} aria-label={`Open piece ${i + 1}`}>
