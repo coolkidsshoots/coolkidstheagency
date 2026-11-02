@@ -102,3 +102,13 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 .insta-chips span{background:var(--ink);color:var(--paper);border-radius:99px;padding:9px 16px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 .insta-btn{background:var(--ink);color:var(--paper);border-radius:99px;padding:18px 32px;font-weight:900;font-size:clamp(15px,1.8vw,19px);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-flex;gap:12px;align-items:center;margin-top:6px;box-shadow:0 6px 0 rgba(0,0,0,.3);transition:transform .15s ease,box-shadow .15s ease}
 .insta-btn:hover{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.3)}
+
+/* instagram button: the app's own colours so it stands out on the pink */
+.insta{position:relative;overflow:hidden}
+.insta>*{position:relative;z-index:1}
+.ig-big{position:absolute!important;z-index:0!important;right:-4%;bottom:-8%;width:clamp(220px,38vw,520px);height:auto;color:var(--ink);opacity:.12;stroke-width:1.4;transform:rotate(-12deg);pointer-events:none}
+.insta-btn{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:#fff;border:3px solid #fff;padding:20px 34px;font-size:clamp(16px,2vw,21px);box-shadow:0 8px 0 var(--ink);animation:igpulse 2.4s ease-in-out infinite}
+.insta-btn:hover{transform:translateY(4px);box-shadow:0 4px 0 var(--ink);animation:none}
+.insta-btn .ig-icon{width:1.5em;height:1.5em;flex:none}
+@keyframes igpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@media (prefers-reduced-motion:reduce){.insta-btn{animation:none}}
