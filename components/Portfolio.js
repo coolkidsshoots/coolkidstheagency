@@ -145,7 +145,7 @@ export default function Portfolio({ media: raw }) {
         <div className="story-grid">
           <div className="story-text">
           <h2>Sport, but make it a <em>movie.</em></h2>
-          <p>Sport is life, and every story in it deserves to be told in style. We are a creative agency with a cinematic eye, started when one filmmaker and one photographer came together. Two eyes, with an army of eyes on the way.</p>
+          <p>Sport is life, and it deserves to be captured in style. We are a creative agency built by two friends, a filmmaker and a photographer, with a cinematic eye for every story. Two eyes now, with an army of eyes on the way.</p>
           <div className="fmt">Your story, told your way.</div>
           
           <div className="chips">
