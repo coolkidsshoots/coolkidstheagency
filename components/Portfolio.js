@@ -231,7 +231,7 @@ export default function Portfolio({ media: raw }) {
         <h2>Let’s make something cool <em>together.</em></h2>
         <ul>
           <li><b>Name:</b><span>Abdullah Ahmed</span></li>
-          <li><b>Email:</b><a href="mailto:Coolkidsshoots@gmail.com">Coolkidsshoots@gmail.com</a></li>
+          <li><b>Email:</b><a href="mailto:contact@coolkidstheagency.com">contact@coolkidstheagency.com</a></li>
           <li><b>Phone:</b><a href="tel:+447385794068">07385 794068</a></li>
           <li><b>Instagram:</b><a href="https://instagram.com/coolkidsthegency">@coolkidsthegency</a></li>
         </ul>
