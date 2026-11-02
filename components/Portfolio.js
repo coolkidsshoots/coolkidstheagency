@@ -23,6 +23,10 @@ function layout(media) {
     }
     if (videos[g]) blocks.push({ kind: "video", item: { m: videos[g], i: flat.push(videos[g]) - 1 } });
   }
+  // Instagram band goes in the middle of the work, right after a video.
+  let at = Math.ceil(blocks.length / 2);
+  while (at < blocks.length && blocks[at - 1]?.kind !== "video") at++;
+  blocks.splice(Math.min(at, blocks.length), 0, { kind: "insta" });
   return { blocks, flat };
 }
 
@@ -124,7 +128,7 @@ export default function Portfolio({ media: raw }) {
         <a href="#top" className="brand">
           <img src="/logo.png" alt="Cool Kids" />
         </a>
-        <a href="#contact">Contact</a>
+        <a href="#contact" className="cta">Contact us <span aria-hidden="true">→</span></a>
       </div>
 
       <section className="hero" id="top">
@@ -168,6 +172,19 @@ export default function Portfolio({ media: raw }) {
               <button type="button" className="hero-shot" key={k} onClick={() => setOpen(b.item.i)} aria-label="Open featured photo">
                 <img src={b.item.m.src} alt="" loading="eager" decoding="async" fetchPriority="high" />
               </button>
+            );
+          }
+          if (b.kind === "insta") {
+            return (
+              <section className="insta" key={k}>
+                <span className="insta-tag">● Follow along</span>
+                <h2>See it before it’s a <em>movie.</em></h2>
+                <p>Follow <b>@coolkidsthegency</b> for the latest projects, raw behind-the-scenes footage and first looks at what we’re shooting next.</p>
+                <div className="insta-chips">
+                  <span>Latest projects</span><span>Behind the scenes</span><span>First looks</span>
+                </div>
+                <a className="insta-btn" href="https://instagram.com/coolkidsthegency" target="_blank" rel="noopener noreferrer">Follow on Instagram <span aria-hidden="true">→</span></a>
+              </section>
             );
           }
           if (b.kind === "photos") {
