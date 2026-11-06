@@ -10,12 +10,14 @@ function layout(media) {
     .filter((m) => m.type !== "video" && m !== featured && !m.story)
     .sort((a, b) => ((a.lead ?? -1) >= 0 ? a.lead : 99) - ((b.lead ?? -1) >= 0 ? b.lead : 99));
   const leadCount = photos.filter((m) => (m.lead ?? -1) >= 0).length;
-  const videos = media.filter((m) => m.type === "video");
+  const pinned = media.find((m) => m.type === "video" && m.afterHero); // this video sits straight after the featured photo
+  const videos = media.filter((m) => m.type === "video" && m !== pinned);
   const groups = videos.length + 1;
   const size = Math.ceil(photos.length / groups) || 1;
   const blocks = [];
   const flat = [];
   if (featured) blocks.push({ kind: "hero", item: { m: featured, i: flat.push(featured) - 1 } });
+  if (pinned) blocks.push({ kind: "video", item: { m: pinned, i: flat.push(pinned) - 1 } });
   for (let g = 0; g < groups; g++) {
     const chunk = photos.slice(g * size, (g + 1) * size);
     if (chunk.length) {
