@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Cool Kids The Agency — Nothing For Sale",
+  title: "Cool Kids The Agency",
   description: "We make the coolest stories in sport. Playful, cinematic storytelling.",
 };
 

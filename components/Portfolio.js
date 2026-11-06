@@ -134,13 +134,12 @@ export default function Portfolio({ media: raw }) {
       </div>
 
       <section className="hero" id="top">
-        <span className="tag">● Nothing for sale</span>
         <h1>Cool Kids <span>The Agency</span></h1>
         <p>We make the coolest stories in sport.</p>
       </section>
 
       <div className="marquee">
-        <div>{"Nothing for sale ✦ Just real stories ✦ ".repeat(8)}</div>
+        <div>{"Just real stories ✦ ".repeat(16)}</div>
       </div>
 
       <section className="story">
@@ -237,7 +236,7 @@ export default function Portfolio({ media: raw }) {
           <li><b>Phone:</b><a href="tel:+447385794068">07385 794068</a></li>
         </ul>
       </section>
-      <footer>© 2026 Cool Kids The Agency. Nothing for sale.</footer>
+      <footer>© 2026 Cool Kids The Agency</footer>
     </>
   );
 }

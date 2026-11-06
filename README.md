@@ -1,6 +1,6 @@
 # Cool Kids The Agency
 
-Next.js portfolio. Nothing for sale.
+Next.js portfolio.
 
 - Put photos/videos in `public/media/` named `01.jpg`, `02.mp4`, `03.jpg`... They play in file-name order.
 - Put the logo at `public/logo.png`.
