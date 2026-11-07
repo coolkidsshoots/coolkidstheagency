@@ -53,6 +53,30 @@ function justify(items, ratios, target, lead = 0) {
   return rows;
 }
 
+// Two rows of photos that glide in opposite directions, four across on a desktop (two on a phone).
+function MotionRows({ photos, onOpen }) {
+  const a = photos.filter((_, i) => i % 2 === 0);
+  const b = photos.filter((_, i) => i % 2 === 1);
+  const row = (list, cls) => (
+    <div className={"mrow " + cls}>
+      {[0, 1].map((rep) =>
+        list.map((m) => (
+          <button type="button" className="mtile" key={rep + m.src} onClick={() => onOpen(m)} aria-label="Open photo" aria-hidden={rep === 1 ? "true" : undefined} tabIndex={rep === 1 ? -1 : 0}>
+            <img src={m.thumb || m.src} alt="" loading="eager" decoding="async" draggable="false" />
+          </button>
+        ))
+      )}
+    </div>
+  );
+  if (photos.length < 4) return null;
+  return (
+    <section className="motion" aria-label="Photos in motion">
+      {row(a, "l")}
+      {row(b, "r")}
+    </section>
+  );
+}
+
 // A video band that swells up as it scrolls into view.
 function Swell({ children }) {
   const ref = useRef(null);
@@ -161,6 +185,8 @@ export default function Portfolio({ media: raw }) {
           )}
         </div>
       </section>
+
+      <MotionRows photos={media.filter((m) => m.type !== "video")} onOpen={(m) => setOpen(media.indexOf(m))} />
 
       <section className="work" id="work">
         <div className="work-head">
