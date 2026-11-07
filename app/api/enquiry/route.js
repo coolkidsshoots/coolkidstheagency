@@ -1,4 +1,4 @@
-// Receives the inquiry form and emails it to the agency.
+// Receives the enquiry form and emails it to the agency.
 // Needs ONE of these set in Vercel (Settings > Environment Variables):
 //   RESEND_API_KEY   (Resend, sends from your own domain)
 //   WEB3FORMS_KEY    (Web3Forms, quickest to set up)
@@ -28,7 +28,7 @@ export async function POST(req) {
   }
 
   const to = process.env.ENQUIRY_TO || "contact@coolkidstheagency.com";
-  const subject = `New inquiry from ${name}${service ? " (" + service + ")" : ""}`;
+  const subject = `New enquiry from ${name}${service ? " (" + service + ")" : ""}`;
   const text = [
     `Name: ${name}`,
     `Email: ${email}`,
@@ -36,7 +36,7 @@ export async function POST(req) {
     `Needs: ${service || "not chosen"}`,
     `When: ${timeline || "not given"}`,
     "",
-    "The job:",
+    "The project:",
     details,
   ].join("\n");
 
@@ -46,7 +46,7 @@ export async function POST(req) {
         method: "POST",
         headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          from: process.env.ENQUIRY_FROM || "Cool Kids Inquiries <inquiries@coolkidstheagency.com>",
+          from: process.env.ENQUIRY_FROM || "Cool Kids Enquiries <enquiries@coolkidstheagency.com>",
           to: [to],
           reply_to: email,
           subject,

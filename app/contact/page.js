@@ -1,8 +1,8 @@
 import ContactForm from "../../components/ContactForm";
 
 export const metadata = {
-  title: "Inquire Now at Cool Kids The Agency",
-  description: "Tell us about your job and we will get back to you. Film and photography for athletes, clubs and brands.",
+  title: "Enquire Now at Cool Kids The Agency",
+  description: "Tell us about your project and we will get back to you. Film and photography for athletes, clubs and brands.",
   alternates: { canonical: "/contact" },
 };
 
@@ -14,7 +14,7 @@ export default function ContactPage() {
         <a href="/" className="enq-back">← Back to the work</a>
       </div>
       <div className="enq-wrap">
-        <h1>Tell us about <em>the job.</em></h1>
+        <h1>Tell us about <em>your project.</em></h1>
         <p className="enq-sub">A few quick details and it lands straight in our inbox. Takes under a minute.</p>
         <ContactForm />
       </div>

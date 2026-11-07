@@ -25,7 +25,7 @@ export default function ContactForm() {
     return (
       <div className="enq-done">
         <h2>Got it. Thank you.</h2>
-        <p>Your inquiry is with us and we will be in touch soon.</p>
+        <p>Your enquiry is with us and we will be in touch soon.</p>
         <a className="enq-btn" href="/">Back to the work</a>
       </div>
     );
@@ -60,7 +60,7 @@ export default function ContactForm() {
       </fieldset>
 
       <label>
-        <span>Tell us about the job *</span>
+        <span>Tell us about your project *</span>
         <textarea name="details" rows={6} required maxLength={4000} placeholder="What is it, who is it for, where, and anything else we should know." />
       </label>
 
@@ -75,7 +75,7 @@ export default function ContactForm() {
       </div>
 
       <button className="enq-btn" type="submit" disabled={state === "sending"}>
-        {state === "sending" ? "Sending..." : "Send inquiry →"}
+        {state === "sending" ? "Sending..." : "Send enquiry →"}
       </button>
 
       {state === "error" && (

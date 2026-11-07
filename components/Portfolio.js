@@ -150,13 +150,13 @@ export default function Portfolio({ media: raw }) {
         <a href="#top" className="brand">
           <img src="/logo.png" alt="Cool Kids" />
         </a>
-        <a href="/contact" className="cta">Inquire now <span aria-hidden="true">→</span></a>
+        <a href="/contact" className="cta">Enquire now <span aria-hidden="true">→</span></a>
       </div>
 
       <section className="hero" id="top">
         <h1>Cool Kids <span>The Agency</span></h1>
         <p>We make the coolest stories in sport.</p>
-        <a className="hero-cta" href="/contact">Inquire now <span aria-hidden="true">→</span></a>
+        <a className="hero-cta" href="/contact">Enquire now <span aria-hidden="true">→</span></a>
         <span className="hero-cta-note">Takes under a minute</span>
       </section>
 
@@ -241,7 +241,7 @@ export default function Portfolio({ media: raw }) {
 
       <section className="contact" id="contact">
         <h2>Let’s make something cool <em>together.</em></h2>
-        <a className="hero-cta bottom" href="/contact">Inquire now <span aria-hidden="true">→</span></a>
+        <a className="hero-cta bottom" href="/contact">Enquire now <span aria-hidden="true">→</span></a>
         <ul>
           <li><b>Email:</b><a href="mailto:contact@coolkidstheagency.com">contact@coolkidstheagency.com</a></li>
           <li><b>Phone:</b><a href="tel:+447385794068">07385 794068</a></li>
