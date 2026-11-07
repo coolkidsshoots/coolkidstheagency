@@ -124,3 +124,45 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 @keyframes mrowL{from{transform:translateX(0)}to{transform:translateX(calc(-100% / var(--reps)))}}
 @keyframes mrowR{from{transform:translateX(calc(-100% / var(--reps)))}to{transform:translateX(0)}}
 @media (prefers-reduced-motion:reduce){.mrow{animation:none}.motion{overflow-x:auto}}
+
+/* big hero enquiry button */
+.hero-cta{align-self:flex-start;margin-top:30px;background:var(--ink);color:var(--paper);border-radius:99px;padding:clamp(20px,2.4vw,28px) clamp(34px,4vw,56px);font-size:clamp(18px,2.4vw,28px);font-weight:900;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-flex;gap:14px;align-items:center;box-shadow:0 8px 0 rgba(0,0,0,.35);transition:transform .15s ease,box-shadow .15s ease,background .15s ease,color .15s ease}
+.hero-cta:hover{background:var(--paper);color:var(--ink);transform:translateY(4px);box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.hero-cta span{transition:transform .2s ease}
+.hero-cta:hover span{transform:translateX(6px)}
+.hero-cta-note{margin-top:16px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.hero-cta.bottom{align-self:flex-end;margin-top:28px;background:var(--pink);color:var(--ink)}
+.hero-cta.bottom:hover{background:var(--paper)}
+
+/* inquiry page */
+.enq{min-height:100vh;background:var(--ink);color:var(--paper);padding:0 20px 80px}
+.enq-bar{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.enq-bar .brand img{height:26px;width:auto;display:block}
+.enq-back{color:var(--paper);text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.enq-back:hover{opacity:1;color:var(--pink)}
+.enq-wrap{max-width:720px;margin:clamp(24px,6vw,64px) auto 0}
+.enq h1{font-size:clamp(40px,9vw,96px);line-height:.9;letter-spacing:-.04em;text-transform:uppercase;font-weight:900;color:var(--pink)}
+.enq h1 em{font-style:normal;color:var(--paper)}
+.enq-sub{margin-top:16px;font-size:clamp(16px,2vw,20px);line-height:1.4;color:#e6cfdc}
+.enq-form{margin-top:36px;display:grid;gap:22px}
+.enq-form label,.enq-form fieldset{display:grid;gap:8px;border:0;padding:0;margin:0}
+.enq-form label>span,.enq-form legend{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#cfa7bc}
+.enq-form legend{padding:0;margin-bottom:8px}
+.enq-form label>span i{font-style:normal;font-weight:600;letter-spacing:.04em;text-transform:none;opacity:.8}
+.enq-form input,.enq-form textarea{width:100%;background:var(--paper);color:var(--ink);border:3px solid transparent;border-radius:14px;padding:16px 18px;font:600 16px/1.4 "Helvetica Neue",Arial,sans-serif;outline:none;transition:border-color .15s ease}
+.enq-form input:focus,.enq-form textarea:focus{border-color:var(--pink)}
+.enq-form textarea{resize:vertical;min-height:150px}
+.enq-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:600px){.enq-row{grid-template-columns:1fr}}
+.enq-chips{display:flex;flex-wrap:wrap;gap:10px}
+.enq-chip{background:transparent;color:var(--paper);border:2px solid var(--paper);border-radius:99px;padding:12px 18px;font:800 13px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.enq-chip.on{background:var(--pink);border-color:var(--pink);color:var(--ink)}
+.enq-btn{display:inline-block;justify-self:start;background:var(--pink);color:var(--ink);border:0;border-radius:99px;padding:22px 44px;font:900 clamp(17px,2vw,22px)/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;box-shadow:0 8px 0 rgba(255,255,255,.25);transition:transform .15s ease,box-shadow .15s ease}
+.enq-btn:hover{transform:translateY(4px);box-shadow:0 4px 0 rgba(255,255,255,.25)}
+.enq-btn:disabled{opacity:.6;cursor:wait}
+.enq-error{font-size:15px;line-height:1.4;color:#ffd0e4}
+.enq-error a{color:var(--pink)}
+.enq-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.enq-done{margin-top:36px}
+.enq-done h2{font-size:clamp(32px,6vw,64px);line-height:.95;text-transform:uppercase;font-weight:900;color:var(--pink);letter-spacing:-.03em}
+.enq-done p{margin:14px 0 28px;font-size:clamp(16px,2vw,20px);color:#e6cfdc}
