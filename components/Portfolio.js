@@ -22,8 +22,8 @@ function layout(media) {
   if (pinned) blocks.push({ kind: "video", item: { m: pinned, i: flat.push(pinned) - 1 } });
   const n = Math.max(rows.length, videos.length);
   for (let g = 0; g < n; g++) {
-    if (videos[g]) blocks.push({ kind: "video", item: { m: videos[g], i: flat.push(videos[g]) - 1 } });
     if (rows[g]) blocks.push({ kind: "photos", items: rows[g].map((m) => ({ m, i: flat.push(m) - 1 })) });
+    if (videos[g]) blocks.push({ kind: "video", item: { m: videos[g], i: flat.push(videos[g]) - 1 } });
   }
   // Instagram band goes in the middle of the work, right after a video.
   let at = Math.ceil(blocks.length / 2);
