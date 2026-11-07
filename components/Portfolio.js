@@ -12,18 +12,18 @@ function layout(media) {
   const leadCount = photos.filter((m) => (m.lead ?? -1) >= 0).length;
   const pinned = media.find((m) => m.type === "video" && m.afterHero); // this video sits straight after the featured photo
   const videos = media.filter((m) => m.type === "video" && m !== pinned);
-  const groups = videos.length + 1;
-  const size = Math.ceil(photos.length / groups) || 1;
+  // Long rows (7+ different photos each) so no photo ever shows twice on screen; videos sit between the rows.
+  const rowCount = Math.max(1, Math.floor(photos.length / 7));
+  const per = Math.ceil(photos.length / rowCount);
+  const rows = Array.from({ length: rowCount }, (_, r) => photos.slice(r * per, (r + 1) * per)).filter((r) => r.length);
   const blocks = [];
   const flat = [];
   if (featured) blocks.push({ kind: "hero", item: { m: featured, i: flat.push(featured) - 1 } });
   if (pinned) blocks.push({ kind: "video", item: { m: pinned, i: flat.push(pinned) - 1 } });
-  for (let g = 0; g < groups; g++) {
-    const chunk = photos.slice(g * size, (g + 1) * size);
-    if (chunk.length) {
-      blocks.push({ kind: "photos", lead: g === 0 ? leadCount : 0, items: chunk.map((m) => ({ m, i: flat.push(m) - 1 })) });
-    }
+  const n = Math.max(rows.length, videos.length);
+  for (let g = 0; g < n; g++) {
     if (videos[g]) blocks.push({ kind: "video", item: { m: videos[g], i: flat.push(videos[g]) - 1 } });
+    if (rows[g]) blocks.push({ kind: "photos", items: rows[g].map((m) => ({ m, i: flat.push(m) - 1 })) });
   }
   // Instagram band goes in the middle of the work, right after a video.
   let at = Math.ceil(blocks.length / 2);
@@ -210,16 +210,8 @@ export default function Portfolio({ media: raw }) {
             );
           }
           if (b.kind === "photos") {
-            // split the group into two rows so every photo is moving
-            const half = Math.ceil(b.items.length / 2);
-            const rows = [b.items.slice(0, half), b.items.slice(half)];
-            const flip = blocks.slice(0, k).filter((x) => x.kind === "photos").length % 2;
-            return (
-              <div className="motion-group" key={k}>
-                <MotionRow items={rows[0]} dir={flip ? "r" : "l"} onOpen={setOpen} />
-                <MotionRow items={rows[1]} dir={flip ? "l" : "r"} onOpen={setOpen} />
-              </div>
-            );
+            const idx = blocks.slice(0, k).filter((x) => x.kind === "photos").length;
+            return <MotionRow key={k} items={b.items} dir={idx % 2 ? "r" : "l"} onOpen={setOpen} />;
           }
           return (
             <Swell key={k}>
