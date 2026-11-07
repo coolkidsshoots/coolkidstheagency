@@ -113,15 +113,14 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 @keyframes igpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
 @media (prefers-reduced-motion:reduce){.insta-btn{animation:none}}
 
-/* two rows of photos gliding in opposite directions */
-.motion{background:var(--ink);overflow:hidden;display:flex;flex-direction:column;gap:0}
-.mrow{display:flex;width:max-content;will-change:transform}
-.mrow.l{animation:mrowL 70s linear infinite}
-.mrow.r{animation:mrowR 70s linear infinite}
-.motion:hover .mrow{animation-play-state:paused}
+/* photos glide non-stop, rows alternate direction */
+.motion{background:var(--ink);overflow:hidden}
+.mrow{display:flex;width:max-content;will-change:transform;animation-timing-function:linear;animation-iteration-count:infinite}
+.mrow.l{animation-name:mrowL}
+.mrow.r{animation-name:mrowR}
 .mtile{flex:none;width:25vw;aspect-ratio:4/5;padding:0;margin:0;border:0;background:var(--ink);cursor:zoom-in;line-height:0;overflow:hidden}
 .mtile img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
-@media (max-width:800px){.mtile{width:50vw}.mrow.l,.mrow.r{animation-duration:55s}}
-@keyframes mrowL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes mrowR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-@media (prefers-reduced-motion:reduce){.mrow.l,.mrow.r{animation:none}.motion{overflow-x:auto}}
+@media (max-width:800px){.mtile{width:50vw}}
+@keyframes mrowL{from{transform:translateX(0)}to{transform:translateX(calc(-100% / var(--reps)))}}
+@keyframes mrowR{from{transform:translateX(calc(-100% / var(--reps)))}to{transform:translateX(0)}}
+@media (prefers-reduced-motion:reduce){.mrow{animation:none}.motion{overflow-x:auto}}

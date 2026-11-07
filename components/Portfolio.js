@@ -53,27 +53,23 @@ function justify(items, ratios, target, lead = 0) {
   return rows;
 }
 
-// Two rows of photos that glide in opposite directions, four across on a desktop (two on a phone).
-function MotionRows({ photos, onOpen }) {
-  const a = photos.filter((_, i) => i % 2 === 0);
-  const b = photos.filter((_, i) => i % 2 === 1);
-  const row = (list, cls) => (
-    <div className={"mrow " + cls}>
-      {[0, 1].map((rep) =>
-        list.map((m) => (
-          <button type="button" className="mtile" key={rep + m.src} onClick={() => onOpen(m)} aria-label="Open photo" aria-hidden={rep === 1 ? "true" : undefined} tabIndex={rep === 1 ? -1 : 0}>
-            <img src={m.thumb || m.src} alt="" loading="eager" decoding="async" draggable="false" />
-          </button>
-        ))
-      )}
-    </div>
-  );
-  if (photos.length < 4) return null;
+// A row of photos that glides non-stop, four across on a desktop (two on a phone). The list repeats so the loop never shows a gap.
+function MotionRow({ items, dir, onOpen }) {
+  if (!items.length) return null;
+  const reps = Math.max(2, Math.ceil(10 / items.length));
+  const secs = Math.max(36, items.length * 11);
   return (
-    <section className="motion" aria-label="Photos in motion">
-      {row(a, "l")}
-      {row(b, "r")}
-    </section>
+    <div className="motion">
+      <div className={"mrow " + dir} style={{ "--reps": reps, animationDuration: secs + "s" }}>
+        {Array.from({ length: reps }).map((_, rep) =>
+          items.map(({ m, i }) => (
+            <button type="button" className="mtile" key={rep + m.src} onClick={() => onOpen(i)} aria-label="Open photo" aria-hidden={rep > 0 ? "true" : undefined} tabIndex={rep > 0 ? -1 : 0}>
+              <img src={m.thumb || m.src} alt="" loading="eager" decoding="async" draggable="false" />
+            </button>
+          ))
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -186,8 +182,6 @@ export default function Portfolio({ media: raw }) {
         </div>
       </section>
 
-      <MotionRows photos={media.filter((m) => m.type !== "video")} onOpen={(m) => setOpen(media.indexOf(m))} />
-
       <section className="work" id="work">
         <div className="work-head">
           <h2>Selected <em>work</em></h2>
@@ -216,18 +210,14 @@ export default function Portfolio({ media: raw }) {
             );
           }
           if (b.kind === "photos") {
-            if (!ready) return <div className="mosaic-wait" key={k} />;
+            // split the group into two rows so every photo is moving
+            const half = Math.ceil(b.items.length / 2);
+            const rows = [b.items.slice(0, half), b.items.slice(half)];
+            const flip = blocks.slice(0, k).filter((x) => x.kind === "photos").length % 2;
             return (
-              <div className="mosaic" key={k}>
-                {justify(b.items, ratios, target, b.lead).map((row, ri) => (
-                  <div className="jrow" key={ri} style={{ aspectRatio: row.reduce((a, x) => a + x.r, 0) }}>
-                    {row.map(({ m, i, r }) => (
-                      <button type="button" className="tile" key={m.src} style={{ flex: `${r} 1 0%` }} onClick={() => setOpen(i)} aria-label={`Open piece ${i + 1}`}>
-                        <img src={m.thumb || m.src} alt="" decoding="async" />
-                      </button>
-                    ))}
-                  </div>
-                ))}
+              <div className="motion-group" key={k}>
+                <MotionRow items={rows[0]} dir={flip ? "r" : "l"} onOpen={setOpen} />
+                <MotionRow items={rows[1]} dir={flip ? "l" : "r"} onOpen={setOpen} />
               </div>
             );
           }
