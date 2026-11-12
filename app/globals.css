@@ -168,10 +168,10 @@ footer{background:var(--ink);color:#aaa;padding:20px;font-size:12px}
 .enq-done p{margin:14px 0 28px;font-size:clamp(16px,2vw,20px);color:#e6cfdc}
 
 
-/* ---- calm, spaced-out version: no constant motion, no flashing, generous breathing room ---- */
-.marquee div,.tag,.insta-btn{animation:none!important}
+/* ---- spaced-out version: motion stays, but slower, softer and with room around everything ---- */
+.insta-btn{animation:none!important}
 .marquee{padding:18px 0}
-.marquee div{transform:none}
+.marquee div{animation-duration:60s!important}
 section{padding:clamp(72px,10vw,140px) clamp(20px,5vw,80px)}
 .hero{padding-top:clamp(96px,14vw,160px)}
 .story-grid{gap:clamp(32px,6vw,96px)}
@@ -183,18 +183,16 @@ section{padding:clamp(72px,10vw,140px) clamp(20px,5vw,80px)}
 .hero-shot{padding:0 clamp(20px,5vw,80px)}
 .hero-shot img{border-radius:6px}
 
-.pgrid{background:var(--ink);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);padding:clamp(48px,8vw,120px) clamp(20px,5vw,80px)}
-@media (max-width:800px){.pgrid{grid-template-columns:repeat(2,1fr);gap:16px}}
-.ptile{display:block;width:100%;aspect-ratio:4/5;padding:0;margin:0;border:0;border-radius:6px;background:#1a1418;cursor:zoom-in;line-height:0;overflow:hidden}
-.ptile img{width:100%;height:100%;object-fit:cover;display:block}
+.motion{padding:clamp(28px,5vw,72px) 0}
+.mtile{padding:0 clamp(10px,1.6vw,24px);background:transparent}
+.mtile img{border-radius:6px}
 
-.swell{padding:0;overflow:visible;background:transparent}
-.swell.ptile-wrap,.swell.vwrap{opacity:0;transition:opacity 1.2s ease}
-.swell.ptile-wrap.in,.swell.vwrap.in{opacity:1}
-.swell.vwrap{background:var(--ink);padding:clamp(24px,4vw,56px) clamp(20px,5vw,80px) clamp(48px,8vw,120px)}
-.vband{transform:none!important;opacity:1!important;filter:none!important;transition:none!important;border-radius:6px;overflow:hidden}
+.swell{padding:clamp(28px,5vw,72px) clamp(20px,5vw,80px);background:var(--ink);overflow:visible}
+.vband{transform:none!important;filter:none!important;opacity:1!important;transition:none!important;border-radius:6px;overflow:hidden}
 .vband video{max-height:80vh}
+.swell{opacity:0;transition:opacity 1.4s ease}
+.swell.in{opacity:1}
 .insta{padding:clamp(80px,12vw,160px) clamp(20px,5vw,80px)}
 .contact{padding:clamp(96px,14vw,180px) clamp(20px,5vw,80px) 36px}
 footer{padding:28px clamp(20px,5vw,80px)}
-@media (prefers-reduced-motion:reduce){.swell.ptile-wrap,.swell.vwrap{opacity:1;transition:none}}
+@media (prefers-reduced-motion:reduce){.swell{opacity:1;transition:none}}

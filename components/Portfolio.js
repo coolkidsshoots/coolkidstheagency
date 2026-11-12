@@ -13,7 +13,7 @@ function layout(media) {
   const pinned = media.find((m) => m.type === "video" && m.afterHero); // this video sits straight after the featured photo
   const videos = media.filter((m) => m.type === "video" && m !== pinned);
   // Long rows (7+ different photos each) so no photo ever shows twice on screen; videos sit between the rows.
-  const rowCount = Math.max(1, Math.ceil(photos.length / 6));
+  const rowCount = Math.max(1, Math.floor(photos.length / 7));
   const per = Math.ceil(photos.length / rowCount);
   const rows = Array.from({ length: rowCount }, (_, r) => photos.slice(r * per, (r + 1) * per)).filter((r) => r.length);
   const blocks = [];
@@ -53,18 +53,23 @@ function justify(items, ratios, target, lead = 0) {
   return rows;
 }
 
-// A calm, evenly spaced grid of photos. Nothing moves; each tile just fades in once as it scrolls into view.
-function PhotoGrid({ items, onOpen }) {
+// Rows of photos that keep gliding, gently and slowly, with clear space between every photo.
+// The list repeats so the loop never shows a gap.
+function MotionRow({ items, dir, onOpen }) {
   if (!items.length) return null;
+  const reps = Math.max(2, Math.ceil(10 / items.length));
+  const secs = Math.max(80, items.length * 22);
   return (
-    <div className="pgrid">
-      {items.map(({ m, i }) => (
-        <Swell key={m.src} className="ptile-wrap">
-          <button type="button" className="ptile" onClick={() => onOpen(i)} aria-label="Open photo">
-            <img src={m.thumb || m.src} alt="" loading="lazy" decoding="async" draggable="false" />
-          </button>
-        </Swell>
-      ))}
+    <div className="motion">
+      <div className={"mrow " + dir} style={{ "--reps": reps, animationDuration: secs + "s" }}>
+        {Array.from({ length: reps }).map((_, rep) =>
+          items.map(({ m, i }) => (
+            <button type="button" className="mtile" key={rep + m.src} onClick={() => onOpen(i)} aria-label="Open photo" aria-hidden={rep > 0 ? "true" : undefined} tabIndex={rep > 0 ? -1 : 0}>
+              <img src={m.thumb || m.src} alt="" loading="eager" decoding="async" draggable="false" />
+            </button>
+          ))
+        )}
+      </div>
     </div>
   );
 }
@@ -208,7 +213,8 @@ export default function Portfolio({ media: raw }) {
             );
           }
           if (b.kind === "photos") {
-            return <PhotoGrid key={k} items={b.items} onOpen={setOpen} />;
+            const idx = blocks.slice(0, k).filter((x) => x.kind === "photos").length;
+            return <MotionRow key={k} items={b.items} dir={idx % 2 ? "r" : "l"} onOpen={setOpen} />;
           }
           return (
             <Swell key={k} className="vwrap">
