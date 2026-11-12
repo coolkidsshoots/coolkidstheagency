@@ -74,10 +74,30 @@ export async function POST(req) {
       if (!r.ok || j.success === false) throw new Error("web3forms");
       return Response.json({ ok: true });
     }
-  } catch {
+
+    // No key set: use FormSubmit, which needs no account. The very first enquiry makes it email contact@ an
+    // activation link; click it once and every enquiry after that lands in the mailbox.
+    const r = await fetch("https://formsubmit.co/ajax/" + encodeURIComponent(to), {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json", Origin: "https://www.coolkidstheagency.com", Referer: "https://www.coolkidstheagency.com/contact" },
+      body: JSON.stringify({
+        _subject: subject,
+        _replyto: email,
+        _template: "table",
+        _captcha: "false",
+        Name: name,
+        Email: email,
+        Phone: phone || "not given",
+        Needs: service || "not chosen",
+        When: timeline || "not given",
+        Project: details,
+      }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || String(j.success) === "false") throw new Error("formsubmit " + r.status + " " + (j.message || ""));
+    return Response.json({ ok: true });
+  } catch (err) {
+    console.error("enquiry send failed:", err && err.message);
     return Response.json({ ok: false, error: "send_failed" }, { status: 502 });
   }
-
-  // no email service set up yet: say so, so the form shows the direct-email fallback instead of pretending it worked
-  return Response.json({ ok: false, error: "not_configured" }, { status: 503 });
 }

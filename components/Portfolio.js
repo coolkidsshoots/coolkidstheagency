@@ -13,7 +13,7 @@ function layout(media) {
   const pinned = media.find((m) => m.type === "video" && m.afterHero); // this video sits straight after the featured photo
   const videos = media.filter((m) => m.type === "video" && m !== pinned);
   // Long rows (7+ different photos each) so no photo ever shows twice on screen; videos sit between the rows.
-  const rowCount = Math.max(1, Math.floor(photos.length / 7));
+  const rowCount = Math.max(1, Math.ceil(photos.length / 6));
   const per = Math.ceil(photos.length / rowCount);
   const rows = Array.from({ length: rowCount }, (_, r) => photos.slice(r * per, (r + 1) * per)).filter((r) => r.length);
   const blocks = [];
@@ -53,38 +53,34 @@ function justify(items, ratios, target, lead = 0) {
   return rows;
 }
 
-// A row of photos that glides non-stop, four across on a desktop (two on a phone). The list repeats so the loop never shows a gap.
-function MotionRow({ items, dir, onOpen }) {
+// A calm, evenly spaced grid of photos. Nothing moves; each tile just fades in once as it scrolls into view.
+function PhotoGrid({ items, onOpen }) {
   if (!items.length) return null;
-  const reps = Math.max(2, Math.ceil(10 / items.length));
-  const secs = Math.max(36, items.length * 11);
   return (
-    <div className="motion">
-      <div className={"mrow " + dir} style={{ "--reps": reps, animationDuration: secs + "s" }}>
-        {Array.from({ length: reps }).map((_, rep) =>
-          items.map(({ m, i }) => (
-            <button type="button" className="mtile" key={rep + m.src} onClick={() => onOpen(i)} aria-label="Open photo" aria-hidden={rep > 0 ? "true" : undefined} tabIndex={rep > 0 ? -1 : 0}>
-              <img src={m.thumb || m.src} alt="" loading="eager" decoding="async" draggable="false" />
-            </button>
-          ))
-        )}
-      </div>
+    <div className="pgrid">
+      {items.map(({ m, i }) => (
+        <Swell key={m.src} className="ptile-wrap">
+          <button type="button" className="ptile" onClick={() => onOpen(i)} aria-label="Open photo">
+            <img src={m.thumb || m.src} alt="" loading="lazy" decoding="async" draggable="false" />
+          </button>
+        </Swell>
+      ))}
     </div>
   );
 }
 
-// A video band that swells up as it scrolls into view.
-function Swell({ children }) {
+// Fades its contents in once, gently, when they scroll into view (and stays visible afterwards).
+function Swell({ children, className = "" }) {
   const ref = useRef(null);
   const [on, setOn] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") { setOn(true); return; }
-    const io = new IntersectionObserver(([e]) => setOn(e.isIntersecting), { threshold: 0.3 });
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setOn(true); io.disconnect(); } }, { threshold: 0.15, rootMargin: "0px 0px -6% 0px" });
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  return <div ref={ref} className={"swell" + (on ? " in" : "")}>{children}</div>;
+  return <div ref={ref} className={"swell " + className + (on ? " in" : "")}>{children}</div>;
 }
 
 export default function Portfolio({ media: raw }) {
@@ -212,11 +208,10 @@ export default function Portfolio({ media: raw }) {
             );
           }
           if (b.kind === "photos") {
-            const idx = blocks.slice(0, k).filter((x) => x.kind === "photos").length;
-            return <MotionRow key={k} items={b.items} dir={idx % 2 ? "r" : "l"} onOpen={setOpen} />;
+            return <PhotoGrid key={k} items={b.items} onOpen={setOpen} />;
           }
           return (
-            <Swell key={k}>
+            <Swell key={k} className="vwrap">
               <button type="button" className="vband" onClick={() => setOpen(b.item.i)} aria-label="Open video">
                 <video src={b.item.m.src} muted loop autoPlay playsInline preload="metadata" />
               </button>
