@@ -14,8 +14,34 @@ export default function ContactForm() {
     body.service = service;
     setState("sending");
     try {
-      const res = await fetch("/api/enquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-      setState(res.ok ? "sent" : "error");
+      // 1) our own route (uses the mail key once one is set in Vercel)
+      let ok = false;
+      try {
+        const res = await fetch("/api/enquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        ok = res.ok;
+      } catch {}
+      // 2) otherwise send straight from the visitor's browser through FormSubmit, which emails contact@
+      if (!ok) {
+        const res = await fetch("https://formsubmit.co/ajax/contact@coolkidstheagency.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            _subject: `New enquiry from ${body.name}${service ? " (" + service + ")" : ""}`,
+            _replyto: body.email,
+            _template: "table",
+            _captcha: "false",
+            Name: body.name,
+            Email: body.email,
+            Phone: body.phone || "not given",
+            Needs: service || "not chosen",
+            When: body.timeline || "not given",
+            Project: body.details,
+          }),
+        });
+        const j = await res.json().catch(() => ({}));
+        ok = res.ok && String(j.success) !== "false";
+      }
+      setState(ok ? "sent" : "error");
     } catch {
       setState("error");
     }
