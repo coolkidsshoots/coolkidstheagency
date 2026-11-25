@@ -165,26 +165,6 @@ export default function Portfolio({ media: raw }) {
         <div>{"Just real stories ✦ ".repeat(16)}</div>
       </div>
 
-      <section className="story">
-        <div className="story-grid">
-          <div className="story-text">
-          <h2>Sport, but make it a <em>movie.</em></h2>
-          <p>Sport is life, and it deserves to be captured in style. We are a creative agency built by two friends, a filmmaker and a photographer, with a cinematic eye for every story. We work with athletes, clubs and brands to tell theirs.</p>
-          <div className="fmt">Your story, told your way.</div>
-          
-          <div className="chips">
-            <span>Film Photography</span><span>Movies</span><span>Cinematic Trailers</span><span>Documentary</span>
-            <span>Digital Photography</span><span>Vlogs</span>
-          </div>
-          </div>
-          {storyPhoto && (
-            <figure className="story-photo">
-              <img src={storyPhoto.thumb || storyPhoto.src} alt="" loading="eager" decoding="async" />
-            </figure>
-          )}
-        </div>
-      </section>
-
       <section className="work" id="work">
         <div className="work-head">
           <h2>Selected <em>work</em></h2>
@@ -224,6 +204,26 @@ export default function Portfolio({ media: raw }) {
             </Swell>
           );
         })}
+      </section>
+
+      <section className="story">
+        <div className="story-grid">
+          <div className="story-text">
+          <h2>Sport, but make it a <em>movie.</em></h2>
+          <p>Sport is life, and it deserves to be captured in style. We are a creative agency built by two friends, a filmmaker and a photographer, with a cinematic eye for every story. We work with athletes, clubs and brands to tell theirs.</p>
+          <div className="fmt">Your story, told your way.</div>
+          
+          <div className="chips">
+            <span>Film Photography</span><span>Movies</span><span>Cinematic Trailers</span><span>Documentary</span>
+            <span>Digital Photography</span><span>Vlogs</span>
+          </div>
+          </div>
+          {storyPhoto && (
+            <figure className="story-photo">
+              <img src={storyPhoto.thumb || storyPhoto.src} alt="" loading="eager" decoding="async" />
+            </figure>
+          )}
+        </div>
       </section>
 
       {current && (
